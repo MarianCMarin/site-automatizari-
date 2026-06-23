@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Automatizări AI pentru Firme — Marian Cristian Marin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg-primary: #0A0E1A; --bg-secondary: #111827; --bg-card: #131C2E;
+  --accent-blue: #3B82F6; --accent-green: #10B981;
+  --text-primary: #F9FAFB; --text-secondary: #9CA3AF;
+  --border: #1F2937; --border-light: #243044;
+  --font-main: 'Inter', sans-serif; --font-mono: 'JetBrains Mono', monospace;
+  --max-width: 1100px; --radius: 12px; --radius-sm: 8px;
+}
+html { scroll-behavior: smooth; }
+body { background-color: var(--bg-primary); color: var(--text-primary); font-family: var(--font-main); font-size: 16px; line-height: 1.7; -webkit-font-smoothing: antialiased; }
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+.mono { font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.05em; }
+.section-label { color: var(--accent-blue); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.12em; margin-bottom: 12px; display: block; }
+.section-title { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; line-height: 1.2; letter-spacing: -0.02em; margin-bottom: 48px; max-width: 680px; }
+.gradient-text { background: linear-gradient(90deg, var(--accent-blue), var(--accent-green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; background-size: 200% auto; animation: gradientShift 4s ease infinite; }
+@keyframes gradientShift { 0% { background-position: 0% center; } 50% { background-position: 100% center; } 100% { background-position: 0% center; } }
+.btn { display: inline-flex; align-items: center; justify-content: center; padding: 14px 28px; border-radius: var(--radius-sm); font-family: var(--font-main); font-size: 0.95rem; font-weight: 600; text-decoration: none; cursor: pointer; transition: all 0.2s ease; border: none; white-space: nowrap; }
+.btn--primary { background: var(--accent-blue); color: #fff; }
+.btn--primary:hover { background: #2563EB; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(59,130,246,0.35); }
+.btn--ghost { background: transparent; color: var(--text-secondary); border: 1px solid var(--border-light); }
+.btn--ghost:hover { border-color: var(--accent-blue); color: var(--text-primary); }
+.btn--nav { background: var(--accent-blue); color: #fff; padding: 10px 20px; font-size: 0.85rem; }
+.btn--full { width: 100%; }
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,14,26,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+.nav__inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.nav__logo { font-weight: 700; font-size: 1rem; }
+.hero { position: relative; padding: 160px 24px 100px; overflow: hidden; }
+.hero__inner { position: relative; z-index: 2; }
+.hero__tag { display: inline-flex; align-items: center; background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.25); border-radius: 100px; padding: 6px 16px; margin-bottom: 28px; color: var(--accent-blue); }
+.hero__headline { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.1; letter-spacing: -0.03em; max-width: 800px; margin-bottom: 24px; }
+.hero__sub { font-size: clamp(1rem, 2vw, 1.2rem); color: var(--text-secondary); max-width: 560px; margin-bottom: 40px; }
+.hero__cta { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 64px; }
+.hero__proof { display: flex; align-items: center; gap: 32px; flex-wrap: wrap; }
+.proof__item { display: flex; flex-direction: column; gap: 4px; }
+.proof__num { font-size: 1.4rem; font-weight: 500; color: var(--accent-green); }
+.proof__label { font-size: 0.8rem; color: var(--text-secondary); }
+.proof__divider { width: 1px; height: 40px; background: var(--border); }
+.hero__bg-glow { position: absolute; top: -200px; right: -200px; width: 700px; height: 700px; background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%); pointer-events: none; z-index: 1; }
+.problema { padding: 100px 24px; background: var(--bg-secondary); }
+.problema__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 48px; }
+.problema__card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; transition: border-color 0.2s, transform 0.2s; }
+.problema__card:hover { border-color: var(--border-light); transform: translateY(-2px); }
+.problema__icon { font-size: 1.8rem; margin-bottom: 16px; }
+.problema__card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.6; }
+.problema__concluzie { font-size: 1.1rem; border-left: 3px solid var(--accent-blue); padding-left: 20px; max-width: 680px; }
+.servicii { padding: 100px 24px; }
+.servicii__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+.serviciu__card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 36px; transition: border-color 0.2s, transform 0.2s; display: flex; flex-direction: column; }
+.serviciu__card:hover { border-color: var(--accent-blue); transform: translateY(-3px); box-shadow: 0 12px 40px rgba(59,130,246,0.1); }
+.serviciu__card--accent { border-color: rgba(59,130,246,0.4); background: linear-gradient(135deg,#131C2E 0%,#0F1829 100%); position: relative; }
+.serviciu__card--accent::before { content: 'Popular'; position: absolute; top: -12px; left: 36px; background: var(--accent-blue); color: #fff; font-size: 0.7rem; font-weight: 700; padding: 4px 12px; border-radius: 100px; letter-spacing: 0.05em; text-transform: uppercase; font-family: var(--font-mono); }
+.serviciu__num { color: var(--accent-blue); font-size: 0.75rem; margin-bottom: 12px; opacity: 0.7; }
+.serviciu__title { font-size: 1.3rem; font-weight: 700; margin-bottom: 20px; }
+.serviciu__list { list-style: none; margin-bottom: 24px; flex: 1; }
+.serviciu__list li { color: var(--text-secondary); font-size: 0.9rem; padding: 8px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; }
+.serviciu__list li::before { content: '→'; color: var(--accent-green); flex-shrink: 0; }
+.serviciu__impact { font-size: 0.85rem; color: var(--accent-green); font-style: italic; margin-top: auto; padding-top: 20px; }
+.credibilitate { padding: 100px 24px; background: var(--bg-secondary); }
+.credibilitate__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.credibilitate__text p { color: var(--text-secondary); margin-bottom: 20px; }
+.credibilitate__stats { display: flex; gap: 32px; margin-top: 36px; flex-wrap: wrap; }
+.stat { display: flex; flex-direction: column; gap: 4px; }
+.stat__num { font-size: 1.1rem; color: var(--accent-blue); font-weight: 500; }
+.stat__label { font-size: 0.8rem; color: var(--text-secondary); }
+.credibilitate__quote { background: var(--bg-card); border: 1px solid var(--border); border-left: 3px solid var(--accent-green); border-radius: var(--radius); padding: 40px; }
+.credibilitate__quote blockquote { font-size: 1.15rem; line-height: 1.7; font-style: italic; margin-bottom: 20px; }
+.credibilitate__quote cite { font-size: 0.85rem; color: var(--text-secondary); font-style: normal; font-family: var(--font-mono); }
+.proces { padding: 100px 24px; }
+.proces__steps { display: flex; flex-direction: column; max-width: 720px; }
+.pas { display: flex; gap: 28px; align-items: flex-start; padding: 32px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); transition: border-color 0.2s; }
+.pas:hover { border-color: var(--accent-blue); }
+.pas__connector { width: 2px; height: 24px; background: linear-gradient(to bottom, var(--accent-blue), transparent); margin-left: 52px; }
+.pas__num { font-size: 1.5rem; color: var(--accent-blue); font-weight: 500; min-width: 40px; opacity: 0.6; }
+.pas__title { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+.pas__desc { color: var(--text-secondary); font-size: 0.9rem; }
+.cta-final { padding: 100px 24px; background: var(--bg-secondary); }
+.cta-final__inner { max-width: 720px; margin: 0 auto; }
+.cta-final__title { font-size: clamp(1.6rem, 3.5vw, 2.4rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 16px; }
+.cta-final__sub { color: var(--text-secondary); margin-bottom: 48px; }
+.contact-form { display: flex; flex-direction: column; gap: 20px; }
+.form__row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form__group { display: flex; flex-direction: column; gap: 8px; }
+.form__group--full { grid-column: 1 / -1; }
+.form__group label { font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); }
+.optional { font-weight: 400; opacity: 0.6; }
+.form__group input, .form__group textarea { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 16px; font-family: var(--font-main); font-size: 0.95rem; color: var(--text-primary); transition: border-color 0.2s, box-shadow 0.2s; width: 100%; }
+.form__group input::placeholder, .form__group textarea::placeholder { color: rgba(156,163,175,0.5); }
+.form__group input:focus, .form__group textarea:focus { outline: none; border-color: var(--accent-blue); box-shadow: 0 0 0 3px rgba(59,130,246,0.1); }
+.form__group input.error, .form__group textarea.error { border-color: #EF4444; }
+.form__error { font-size: 0.78rem; color: #EF4444; min-height: 16px; }
+.form__gdpr { display: flex; align-items: flex-start; gap: 12px; }
+.form__gdpr input[type="checkbox"] { width: 18px; height: 18px; flex-shrink: 0; margin-top: 3px; accent-color: var(--accent-blue); }
+.form__gdpr label { font-size: 0.82rem; color: var(--text-secondary); }
+.form__success { background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.3); border-radius: var(--radius-sm); padding: 16px 20px; color: var(--accent-green); font-size: 0.9rem; text-align: center; }
+.cta-final__alt { text-align: center; margin-top: 24px; color: var(--text-secondary); font-size: 0.9rem; }
+.link { color: var(--accent-blue); text-decoration: none; }
+.link:hover { text-decoration: underline; }
+.footer { padding: 48px 24px 32px; border-top: 1px solid var(--border); }
+.footer__inner { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; margin-bottom: 32px; flex-wrap: wrap; }
+.footer__left { display: flex; flex-direction: column; gap: 6px; }
+.footer__name { font-weight: 700; }
+.footer__tagline { color: var(--text-secondary); font-size: 0.75rem; }
+.footer__links { display: flex; gap: 24px; flex-wrap: wrap; }
+.footer__link { color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+.footer__link:hover { color: var(--text-primary); }
+.footer__bottom { display: flex; justify-content: space-between; padding-top: 24px; border-top: 1px solid var(--border); flex-wrap: wrap; gap: 12px; color: var(--text-secondary); font-size: 0.78rem; }
+.footer__gdpr { color: rgba(156,163,175,0.5); font-size: 0.7rem; }
+.fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+@media (max-width: 768px) {
+  .hero { padding: 120px 24px 80px; }
+  .hero__cta { flex-direction: column; }
+  .hero__cta .btn { width: 100%; }
+  .proof__divider { display: none; }
+  .problema__grid, .servicii__grid, .credibilitate__inner, .form__row { grid-template-columns: 1fr; }
+  .credibilitate__inner { gap: 40px; }
+}
+  </style>
+</head>
+<body>
+  <nav class="nav" id="nav">
+    <div class="container nav__inner">
+      <span class="nav__logo">Marian Cristian Marin</span>
+      <a href="#contact" class="btn btn--nav">Consultație gratuită</a>
+    </div>
+  </nav>
+  <section class="hero" id="hero">
+    <div class="container hero__inner">
+      <div class="hero__tag"><span class="mono">Automatizări AI · România</span></div>
+      <h1 class="hero__headline">Firma ta pierde timp pe taskuri pe care <span class="gradient-text">AI le face automat.</span></h1>
+      <p class="hero__sub">Implementez fluxuri automate în procesele, vânzările și suportul tău — fără să angajezi pe nimeni nou și fără să îți opresc activitatea.</p>
+      <div class="hero__cta">
+        <a href="#contact" class="btn btn--primary">Vreau o consultație gratuită</a>
+        <a href="#servicii" class="btn btn--ghost">Vezi ce automatizăm →</a>
+      </div>
+      <div class="hero__proof">
+        <div class="proof__item"><span class="proof__num mono">30 min</span><span class="proof__label">consultație gratuită</span></div>
+        <div class="proof__divider"></div>
+        <div class="proof__item"><span class="proof__num mono">3 arii</span><span class="proof__label">de automatizare</span></div>
+        <div class="proof__divider"></div>
+        <div class="proof__item"><span class="proof__num mono">0 cod</span><span class="proof__label">necesar din partea ta</span></div>
+      </div>
+    </div>
+    <div class="hero__bg-glow" aria-hidden="true"></div>
+  </section>
+  <section class="problema" id="problema">
+    <div class="container">
+      <div class="section-label mono">Recunoști asta?</div>
+      <h2 class="section-title">Productivitatea nu e o problemă de oameni. E o problemă de procese.</h2>
+      <div class="problema__grid">
+        <div class="problema__card fade-in"><div class="problema__icon">⏱</div><p>Angajații tăi trimit același email de zeci de ori pe lună — manual, copiat, retrimis.</p></div>
+        <div class="problema__card fade-in"><div class="problema__icon">📊</div><p>Rapoartele se fac în Excel, în fiecare luni dimineață. De fiecare dată de la zero.</p></div>
+        <div class="problema__card fade-in"><div class="problema__icon">💬</div><p>Clienții tăi așteaptă ore pentru un răspuns pe care un agent AI l-ar da în 3 secunde.</p></div>
+        <div class="problema__card fade-in"><div class="problema__icon">🔁</div><p>Datele din CRM, facturare și email nu vorbesc între ele. Le sincronizează un om, manual.</p></div>
+      </div>
+      <p class="problema__concluzie">Fiecare oră pierdută pe taskuri repetitive costă bani reali. Nu e vina oamenilor — e vina lipsei de automatizare.</p>
+    </div>
+  </section>
+  <section class="servicii" id="servicii">
+    <div class="container">
+      <div class="section-label mono">Ce automatizăm</div>
+      <h2 class="section-title">Trei arii. Un singur partener.</h2>
+      <div class="servicii__grid">
+        <div class="serviciu__card fade-in">
+          <div class="serviciu__num mono">01</div>
+          <h3 class="serviciu__title">Procese Interne</h3>
+          <ul class="serviciu__list">
+            <li>Onboarding angajați fără hârtii și emailuri manuale</li>
+            <li>Facturare și raportare generate automat</li>
+            <li>CRM actualizat fără introducere manuală de date</li>
+            <li>Notificări și aprobări interne fără follow-up uman</li>
+          </ul>
+          <p class="serviciu__impact">Echipa ta se ocupă de ce contează, nu de ce se poate automatiza.</p>
+        </div>
+        <div class="serviciu__card serviciu__card--accent fade-in">
+          <div class="serviciu__num mono">02</div>
+          <h3 class="serviciu__title">Clienți și Suport</h3>
+          <ul class="serviciu__list">
+            <li>Chatbot activ 24/7 pe site, WhatsApp sau email</li>
+            <li>Calificare automată a lead-urilor înainte să ajungă la echipa ta</li>
+            <li>Răspunsuri instant la întrebările frecvente</li>
+            <li>Escaladare inteligentă către om doar când e necesar</li>
+          </ul>
+          <p class="serviciu__impact">Clienții primesc răspuns imediat. Echipa ta intervine doar unde adaugă valoare reală.</p>
+        </div>
+        <div class="serviciu__card fade-in">
+          <div class="serviciu__num mono">03</div>
+          <h3 class="serviciu__title">Marketing și Vânzări</h3>
+          <ul class="serviciu__list">
+            <li>Secvențe email automate pentru nurture și reactivare clienți</li>
+            <li>Pipeline de vânzări care se actualizează singur</li>
+            <li>Raportare automată a campaniilor active</li>
+            <li>Programare și publicare conținut fără intervenție manuală</li>
+          </ul>
+          <p class="serviciu__impact">Vânzările se mișcă și când echipa ta nu e la birou.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="credibilitate" id="despre">
+    <div class="container credibilitate__inner">
+      <div class="credibilitate__text fade-in">
+        <div class="section-label mono">De ce Marian</div>
+        <h2 class="section-title">Nu vând software. Implementez fluxuri care funcționează.</h2>
+        <p>Lucrez direct cu antreprenori și manageri care vor rezultate concrete, nu prezentări PowerPoint. Fiecare proiect începe cu o analiză reală a proceselor tale — nu cu un template generic.</p>
+        <p>Primele implementări active din 2024. Rezultate documentate disponibile la cerere.</p>
+        <div class="credibilitate__stats">
+          <div class="stat"><span class="stat__num mono">IMM-uri</span><span class="stat__label">și corporații din România</span></div>
+          <div class="stat"><span class="stat__num mono">3 arii</span><span class="stat__label">procese, clienți, vânzări</span></div>
+          <div class="stat"><span class="stat__num mono">0</span><span class="stat__label">promisiuni fără acoperire</span></div>
+        </div>
+      </div>
+      <div class="credibilitate__quote fade-in">
+        <blockquote>"Înainte să propun orice soluție, vreau să înțeleg exact unde pierzi timp și bani. Abia după aceea construim."</blockquote>
+        <cite>— Marian Cristian Marin</cite>
+      </div>
+    </div>
+  </section>
+  <section class="proces" id="proces">
+    <div class="container">
+      <div class="section-label mono">Cum funcționează</div>
+      <h2 class="section-title">4 pași de la primul contact la primul flux automatizat.</h2>
+      <div class="proces__steps">
+        <div class="pas fade-in"><div class="pas__num mono">01</div><div class="pas__content"><h3 class="pas__title">Consultație gratuită — 30 min</h3><p class="pas__desc">Identificăm împreună unde pierzi cel mai mult timp și bani. Fără angajamente, fără prezentări de vânzare.</p></div></div>
+        <div class="pas__connector"></div>
+        <div class="pas fade-in"><div class="pas__num mono">02</div><div class="pas__content"><h3 class="pas__title">Audit și propunere</h3><p class="pas__desc">Primești un plan concret: ce automatizăm, cum, în cât timp și ce rezultat estimat produci.</p></div></div>
+        <div class="pas__connector"></div>
+        <div class="pas fade-in"><div class="pas__num mono">03</div><div class="pas__content"><h3 class="pas__title">Implementare</h3><p class="pas__desc">Construim și testăm fluxurile fără să îți întrerupem activitatea. Tu continuă să lucrezi, noi construim în spate.</p></div></div>
+        <div class="pas__connector"></div>
+        <div class="pas fade-in"><div class="pas__num mono">04</div><div class="pas__content"><h3 class="pas__title">Predare și suport</h3><p class="pas__desc">Echipa ta preia controlul. Eu rămân disponibil pentru ajustări și extinderi.</p></div></div>
+      </div>
+    </div>
+  </section>
+  <section class="cta-final" id="contact">
+    <div class="container cta-final__inner fade-in">
+      <div class="section-label mono">Hai să vorbim</div>
+      <h2 class="cta-final__title">Vrei să vedem ce putem automatiza în firma ta?</h2>
+      <p class="cta-final__sub">Consultația inițială este gratuită și fără obligații. 30 de minute în care afli exact ce e posibil.</p>
+      <form class="contact-form" id="contactForm" novalidate>
+        <div class="form__row">
+          <div class="form__group"><label for="nume">Nume *</label><input type="text" id="nume" name="nume" placeholder="Numele tău" required /><span class="form__error" id="err-nume"></span></div>
+          <div class="form__group"><label for="email">Email *</label><input type="email" id="email" name="email" placeholder="email@firma.ro" required /><span class="form__error" id="err-email"></span></div>
+        </div>
+        <div class="form__row">
+          <div class="form__group"><label for="telefon">Telefon <span class="optional">(opțional)</span></label><input type="tel" id="telefon" name="telefon" placeholder="+40 7xx xxx xxx" /></div>
+          <div class="form__group"><label for="firma">Firma</label><input type="text" id="firma" name="firma" placeholder="Numele firmei" /></div>
+        </div>
+        <div class="form__group form__group--full"><label for="mesaj">Ce vrei să automatizezi? *</label><textarea id="mesaj" name="mesaj" rows="4" placeholder="Descrie pe scurt procesul sau problema principală..." required></textarea><span class="form__error" id="err-mesaj"></span></div>
+        <div class="form__gdpr">
+          <input type="checkbox" id="gdpr" name="gdpr" required />
+          <label for="gdpr">Sunt de acord cu <a href="#" class="link">Politica de confidențialitate</a> și cu prelucrarea datelor în scopul contactării. *</label>
+          <span class="form__error" id="err-gdpr"></span>
+        </div>
+        <button type="submit" class="btn btn--primary btn--full">Trimite — Vreau consultația gratuită</button>
+        <div class="form__success" id="formSuccess" style="display:none;">✓ Mesajul a fost trimis. Te contactez în cel mult 24 de ore.</div>
+      </form>
+      <p class="cta-final__alt">Sau scrie direct la <a href="mailto:contact@mariancristianmarin.ro" class="link">contact@mariancristianmarin.ro</a></p>
+    </div>
+  </section>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__left"><span class="footer__name">Marian Cristian Marin</span><span class="footer__tagline mono">Automatizări AI pentru firme</span></div>
+      <div class="footer__links">
+        <a href="mailto:contact@mariancristianmarin.ro" class="footer__link">contact@mariancristianmarin.ro</a>
+        <a href="https://linkedin.com" target="_blank" rel="noopener" class="footer__link">LinkedIn</a>
+        <a href="#" class="footer__link">Politică de confidențialitate</a>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <span>© 2026 Marian Cristian Marin. Toate drepturile rezervate.</span>
+      <span class="mono footer__gdpr">GDPR Compliant · Date procesate conform Regulamentului UE 2016/679</span>
+    </div>
+  </footer>
+  <script>
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => { nav.style.background = window.scrollY > 50 ? 'rgba(10,14,26,0.97)' : 'rgba(10,14,26,0.85)'; });
+const obs = new IntersectionObserver((entries) => { entries.forEach((e,i) => { if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'), i*80); obs.unobserve(e.target); } }); }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+const form = document.getElementById('contactForm');
+const successMsg = document.getElementById('formSuccess');
+function showError(id, msg){ document.getElementById('err-'+id).textContent=msg; document.getElementById(id).classList.add('error'); }
+function clearError(id){ const el=document.getElementById('err-'+id); const inp=document.getElementById(id); if(el)el.textContent=''; if(inp)inp.classList.remove('error'); }
+['nume','email','mesaj'].forEach(id=>{ const el=document.getElementById(id); if(el)el.addEventListener('input',()=>clearError(id)); });
+if(form){ form.addEventListener('submit',(e)=>{ e.preventDefault(); let valid=true; ['nume','email','mesaj','gdpr'].forEach(id=>clearError(id));
+const nume=document.getElementById('nume').value.trim(); const email=document.getElementById('email').value.trim(); const mesaj=document.getElementById('mesaj').value.trim(); const gdpr=document.getElementById('gdpr').checked;
+if(!nume){showError('nume','Te rog introdu numele tău.');valid=false;}
+if(!email){showError('email','Te rog introdu adresa de email.');valid=false;}else if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showError('email','Adresa de email nu este validă.');valid=false;}
+if(!mesaj){showError('mesaj','Te rog descrie pe scurt ce vrei să automatizezi.');valid=false;}
+if(!gdpr){showError('gdpr','Este necesar acordul pentru prelucrarea datelor.');valid=false;}
+if(!valid)return;
+const btn=form.querySelector('button[type="submit"]'); btn.textContent='Se trimite...'; btn.disabled=true;
+setTimeout(()=>{ form.style.display='none'; successMsg.style.display='block'; },1000); }); }
+document.querySelectorAll('a[href^="#"]').forEach(a=>{ a.addEventListener('click',(e)=>{ const t=document.querySelector(a.getAttribute('href')); if(t){e.preventDefault(); window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-80,behavior:'smooth'});} }); });
+  </script>
+</body>
+</html>
