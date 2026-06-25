@@ -339,7 +339,7 @@ if(!mesaj){showError('mesaj','Te rog descrie pe scurt ce vrei să automatizezi.'
 if(!gdpr){showError('gdpr','Este necesar acordul pentru prelucrarea datelor.');valid=false;}
 if(!valid)return;
 const btn=form.querySelector('button[type="submit"]'); btn.textContent='Se trimite...'; btn.disabled=true;
-emailjs.sendForm('service_ID','template_ID',form,'USER_PUBLIC_KEY')
+emailjs.sendForm('service_42fdawn','yuxcpat',form,'wCTMCOwOgxMOp6eAL')
         .then(()=>{ form.style.display='none'; successMsg.style.display='block'; })
         .catch(()=>{ btn.textContent='Trimite — Vreau consultația gratuită'; btn.disabled=false; }); }); }
 document.querySelectorAll('a[href^="#"]').forEach(a=>{ a.addEventListener('click',(e)=>{ const t=document.querySelector(a.getAttribute('href')); if(t){e.preventDefault(); window.scrollTo({top:t.getBoundingClientRect().top+window.scrollY-80,behavior:'smooth'});} }); });
