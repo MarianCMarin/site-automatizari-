@@ -17,27 +17,21 @@ window.addEventListener('scroll', () => {
 const fadeEls = document.querySelectorAll('.fade-in');
 
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry, index) => {
+  entries.forEach(entry => {
     if (entry.isIntersecting) {
-      // Stagger pentru elemente multiple în același container
-      setTimeout(() => {
-        entry.target.classList.add('visible');
-      }, index * 80);
+      entry.target.classList.add('visible');
       observer.unobserve(entry.target);
     }
   });
-}, {
-  threshold: 0.12,
-  rootMargin: '0px 0px -40px 0px'
-});
+}, { threshold: 0.1 });
 
 fadeEls.forEach(el => observer.observe(el));
 
 // ============================================
-// FORM VALIDATION & SUBMIT
+// CONTACT FORM — EMAILJS
 // ============================================
-const form = document.getElementById('contactForm');
-const successMsg = document.getElementById('formSuccess');
+const form = document.getElementById('contact-form');
+const successMsg = document.getElementById('form-success');
 
 function showError(fieldId, msg) {
   const el = document.getElementById('err-' + fieldId);
@@ -79,7 +73,7 @@ if (form) {
     const gdpr = document.getElementById('gdpr').checked;
 
     if (!nume) {
-      showError('nume', 'Te rog introdu numele tău.');
+      showError('nume', 'Te rog introdu numele tau.');
       valid = false;
     }
 
@@ -87,12 +81,12 @@ if (form) {
       showError('email', 'Te rog introdu adresa de email.');
       valid = false;
     } else if (!validateEmail(email)) {
-      showError('email', 'Adresa de email nu este validă.');
+      showError('email', 'Adresa de email nu este valida.');
       valid = false;
     }
 
     if (!mesaj) {
-      showError('mesaj', 'Te rog descrie pe scurt ce vrei să automatizezi.');
+      showError('mesaj', 'Te rog descrie pe scurt ce vrei sa automatizezi.');
       valid = false;
     }
 
@@ -103,15 +97,27 @@ if (form) {
 
     if (!valid) return;
 
-    // Simulate submit (înlocuiește cu Formspree sau mailto în producție)
     const submitBtn = form.querySelector('button[type="submit"]');
     submitBtn.textContent = 'Se trimite...';
     submitBtn.disabled = true;
 
-    setTimeout(() => {
+    const telefon = document.getElementById('telefon') ? document.getElementById('telefon').value.trim() : '';
+    const firma = document.getElementById('firma') ? document.getElementById('firma').value.trim() : '';
+
+    emailjs.send('service_42fdawn', 'template_j4048ov', {
+      nume: nume,
+      email: email,
+      mesaj: mesaj,
+      telefon: telefon,
+      firma: firma
+    }).then(function() {
       form.style.display = 'none';
       successMsg.style.display = 'block';
-    }, 1000);
+    }, function(error) {
+      submitBtn.textContent = 'Trimite mesajul';
+      submitBtn.disabled = false;
+      alert('Eroare la trimitere. Te rog incearca din nou. (' + JSON.stringify(error) + ')');
+    });
   });
 }
 
@@ -119,13 +125,11 @@ if (form) {
 // SMOOTH SCROLL PENTRU ANCORE INTERNE
 // ============================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', (e) => {
-    const target = document.querySelector(anchor.getAttribute('href'));
+  anchor.addEventListener('click', function (e) {
+    const target = document.querySelector(this.getAttribute('href'));
     if (target) {
       e.preventDefault();
-      const offset = 80; // înălțimea nav-ului
-      const top = target.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: 'smooth' });
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   });
 });
